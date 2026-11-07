@@ -2,7 +2,7 @@
 
 Read, write and validate **MDZip** (`.mdz`) archives in Swift: one or more Markdown documents and their images and other assets, packaged in a single ZIP file.
 
-This package implements the [MDZip specification](https://github.com/mdzip-project/mdzip-spec) 1.2.1 and the required operations (R1 to R7) of the [core library contract](https://github.com/mdzip-project/.github/blob/main/docs/core-contract.md). It does not render Markdown. Status: 0.1.0, not yet released or tagged.
+This package implements the [MDZip specification](https://github.com/mdzip-project/mdzip-spec) 1.2.1 and the required operations (R1 to R7) of the [core library contract](https://github.com/mdzip-project/.github/blob/main/docs/core-contract.md). It does not render Markdown. Status: 0.1.0, released ([release notes](https://github.com/mdzip-project/mdzip-core-swift/releases/tag/v0.1.0)); Swift Package Manager installs it from the Git tag.
 
 - Swift tools 5.9+, for macOS 12+, iOS 15+ and Linux (the platforms declared in `Package.swift`). CI runs the tests on Linux (`swift:6.1`), macOS (`macos-15`) and the iOS Simulator. No Apple-only APIs are used. To run the tests yourself on a Mac, in the iOS Simulator or on an iPhone, see [Testing on a Mac, the iOS Simulator and an iPhone](docs/testing-on-mac-and-iphone.md).
 - One dependency: [ZIPFoundation](https://github.com/weichsel/ZIPFoundation) 0.9.20 (MIT), used only to write archives. See [ZIP library](#zip-library).
@@ -162,7 +162,7 @@ Each fixture test prints a `FIXTURE-RESULT` line. All 41 tests pass.
 ## What's left to do
 
 - Not yet run on a physical iPhone (CI covers the iOS Simulator; see the testing guide).
-- No release, tag or Swift Package Index entry yet.
+- Not yet listed on the Swift Package Index.
 - Not implemented (optional extensions): configurable limits are available, but there is no image analysis, workspace model, directory packing, MIME helpers or safe extraction to disk.
 - Links outside the archive and into other archives (Sections 9.4 and 9.5) need a host filesystem and are unresolved.
 - Large archives are read and written in memory; there is no streaming API.
