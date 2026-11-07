@@ -10,13 +10,36 @@ jobs:
     runs-on: ubuntu-latest
     container: swift:6.1
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: swift build
       - run: swift test
 
   macos:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: swift build
       - run: swift test
+
+  ios:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v5
+      - name: Test on the iOS Simulator
+        run: |
+          # The newest available iPhone simulator.
+          DEVICE=$(xcrun simctl list devices available -j | python3 -c '
+          import json, sys
+          devices = json.load(sys.stdin)["devices"]
+          ios = sorted((k for k in devices if "iOS" in k), key=lambda k: [int(x) for x in k.split("iOS-")[1].split("-")])
+          print(next(d["udid"] for k in reversed(ios) for d in devices[k] if d["name"].startswith("iPhone")))
+          ')
+          xcrun simctl list devices | grep "$DEVICE"
+          # SwiftPM names the scheme with the tests MDZip-Package when there is one, else MDZip.
+          SCHEME=$(xcodebuild -list -json | python3 -c '
+          import json, sys
+          schemes = json.load(sys.stdin)["workspace"]["schemes"]
+          print("MDZip-Package" if "MDZip-Package" in schemes else "MDZip")
+          ')
+          xcodebuild test -scheme "$SCHEME" -destination "id=$DEVICE" -skipPackagePluginValidation | tail -40
+          exit ${PIPESTATUS[0]}

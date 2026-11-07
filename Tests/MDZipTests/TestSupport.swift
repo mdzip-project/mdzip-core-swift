@@ -3,7 +3,10 @@ import XCTest
 @testable import MDZip
 
 enum Fixtures {
-    static let directory = URL(fileURLWithPath: #filePath).deletingLastPathComponent().appendingPathComponent("Fixtures")
+    /// The spec fixtures, bundled as a test resource (Package.swift), so the tests find them on
+    /// Linux, macOS and iOS devices or simulators alike.
+    static let directory: URL = Bundle.module.url(forResource: "Fixtures", withExtension: nil)
+        ?? URL(fileURLWithPath: #filePath).deletingLastPathComponent().appendingPathComponent("Fixtures")
 
     static func data(_ name: String) throws -> Data {
         try Data(contentsOf: directory.appendingPathComponent(name))

@@ -4,7 +4,7 @@ Read, write and validate **MDZip** (`.mdz`) archives in Swift: one or more Markd
 
 This package implements the [MDZip specification](https://github.com/mdzip-project/mdzip-spec) 1.2.1 and the required operations (R1 to R7) of the [core library contract](https://github.com/mdzip-project/.github/blob/main/docs/core-contract.md). It does not render Markdown. Status: 0.1.0, not yet released or tagged.
 
-- Swift tools 5.9+; tested with the official `swift:6.1` image on Linux. Builds on macOS 12+ and iOS 15+ (the platforms declared in `Package.swift`; CI also runs on `macos-15`). No Apple-only APIs are used.
+- Swift tools 5.9+, for macOS 12+, iOS 15+ and Linux (the platforms declared in `Package.swift`). CI runs the tests on Linux (`swift:6.1`), macOS (`macos-15`) and the iOS Simulator. No Apple-only APIs are used. To run the tests yourself on a Mac, in the iOS Simulator or on an iPhone, see [Testing on a Mac, the iOS Simulator and an iPhone](docs/testing-on-mac-and-iphone.md).
 - One dependency: [ZIPFoundation](https://github.com/weichsel/ZIPFoundation) 0.9.20 (MIT), used only to write archives. See [ZIP library](#zip-library).
 
 ## Install
@@ -161,8 +161,8 @@ Each fixture test prints a `FIXTURE-RESULT` line. All 41 tests pass.
 
 ## What's left to do
 
-- macOS and iOS builds are untested here (no Apple machine); CI will exercise macOS on its first run.
-- No release, tag or Swift Package Index entry yet; the CI workflow has not been run.
+- Not yet run on a physical iPhone (CI covers the iOS Simulator; see the testing guide).
+- No release, tag or Swift Package Index entry yet.
 - Not implemented (optional extensions): configurable limits are available, but there is no image analysis, workspace model, directory packing, MIME helpers or safe extraction to disk.
 - Links outside the archive and into other archives (Sections 9.4 and 9.5) need a host filesystem and are unresolved.
 - Large archives are read and written in memory; there is no streaming API.

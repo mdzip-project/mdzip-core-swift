@@ -25,7 +25,8 @@ let package = Package(
         .testTarget(
             name: "MDZipTests",
             dependencies: ["MDZip"],
-            exclude: ["Fixtures"]
+            // Bundled with the tests so they also run on iOS devices and simulators.
+            resources: [.copy("Fixtures")]
         ),
     ]
 )
